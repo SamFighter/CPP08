@@ -4,7 +4,8 @@ NAME			:=	a.out
 #                                 INGREDIENTS                                  #
 # **************************************************************************** #
 
-SRC				:=	main.cpp
+SRC				:=	main.cpp \
+					Span.cpp
 
 SRC_OBJS		:=	$(SRC:%.cpp=.build/%.o)
 DEPS			:=	$(SRC_OBJS:%.o=%.d)
