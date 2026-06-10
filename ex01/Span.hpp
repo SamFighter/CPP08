@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <stdexcept>
 #include <vector>
+#include <numeric>
 
 class Span {
 	private:

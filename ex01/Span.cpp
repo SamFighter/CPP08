@@ -30,32 +30,23 @@ Span	&Span::operator=(const Span &toCopy)
 }
 
 //################### public Method
-long	Span::shortestSpan()
+long Span::shortestSpan()
 {
-	long					actualSmaller;
-	unsigned int 			len = this->_numbers.size();
-
-	if (len == 0 || len == 1)
-		throw LimitLowNumberException();
-	std::sort(this->_numbers.begin(), this->_numbers.end());
-	actualSmaller = this->_numbers[1] - this->_numbers[0];
-	for (unsigned int i = 0; i < len - 1; i++)
-	{
-		long	tmpSmaller = this->_numbers[i + 1] - this->_numbers[i];
-		if (tmpSmaller < actualSmaller)
-			actualSmaller = tmpSmaller;
-	}
-	return (actualSmaller);
+    if (_numbers.size() <= 1)
+        throw LimitLowNumberException();
+    std::vector<int> sorted(_numbers);
+    std::sort(sorted.begin(), sorted.end());
+    std::vector<int> diffs(sorted.size());
+    std::adjacent_difference(sorted.begin(), sorted.end(), diffs.begin());
+    return *std::min_element(diffs.begin() + 1, diffs.end());
 }
 
-long	Span::longestSpan()
+long Span::longestSpan()
 {
-	unsigned int			len = this->_numbers.size();
-
-	if (len == 0 || len == 1)
-		throw LimitLowNumberException();
-	std::sort(this->_numbers.begin(), this->_numbers.end());
-	return (this->_numbers[len - 1] - this->_numbers[0]);
+    if (_numbers.size() <= 1)
+        throw LimitLowNumberException();
+    return (*std::max_element(_numbers.begin(), _numbers.end()) 
+            - *std::min_element(_numbers.begin(), _numbers.end()));
 }
 
 void	Span::addNumber(int newNumber)
